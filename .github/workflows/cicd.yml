@@ -21,13 +21,13 @@ jobs:
         run: npm install
       
       - name: Run tests
-        run: jest --testResultsProcessor=jest-junit --outputFile=junit.xml
+        run: npm run check 2>&1 | tee test-results.txt
 
       - name: Upload test results 
         uses: actions/upload-artifact@v4
         with:
           name: test-results
-          path: ./junit.xml
+          path: test-results.txt
           
         
   
@@ -42,10 +42,12 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: test-results
-          path: ./junit.xml
+          path: artifacts
 
-      - name: Display test results
-        run: cat ./junit.xml
+      - name: Display test-results
+        run: |
+          echo "===== Test Results ====="
+          cat artifacts/test-results.txt
 
 
       - name: Install The Packages
