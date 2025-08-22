@@ -67,35 +67,20 @@ jobs:
           #* Save the process
           pm2 save
 
-      - name: Display Challenges & Solutions and Test Results
+      - name: Add Challenges & Solutions to Job Summary
         run: |
-          # 1. Append “Test Results” via a heredoc
-          cat <<EOF | tee -a $GITHUB_STEP_SUMMARY
-          ## 🧪 Test Results
-
-          $(cat test-results.txt)
-          
-          **-----------------------------------**
-          EOF
-
-
-          # 2. Append “Challenges & Solutions” via a heredoc
-          cat <<EOF | tee -a $GITHUB_STEP_SUMMARY
-          **-----------------------------------**
-          
+          cat <<EOF >> $GITHUB_STEP_SUMMARY
+       
           ## ⚠️ Challenges & Solutions
 
           **Challenge:** Self-hosted runner environment setup  
-          **Solution:** Installed Node.js 22 & PM2 manually and validated with `node -v` & `pm2 -v`.
+          **Solution:** Installed Node.js 22 & PM2 manually and validated with \`node -v\` & \`pm2 -v\`.
 
           **Challenge:** Preventing duplicate app instances during redeployment  
-          **Solution:** Added cleanup step `pm2 delete node-app || true`.
+          **Solution:** Added cleanup step \`pm2 delete node-app || true\`.
 
           **Challenge:** Ensuring deploy job runs only after successful tests  
-          **Solution:** Used `needs: test` in GitHub Actions workflow.
+          **Solution:** Used \`needs: test\` in GitHub Actions workflow.
           EOF
-
-          
-
 
       
