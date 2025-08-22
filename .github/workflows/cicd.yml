@@ -22,3 +22,27 @@ jobs:
       
       - name: Test The applications
         run: npm run check 
+  
+  deploy:
+    needs: test
+    runs-on: self-hosted
+    steps:
+      - name: Checkout the code
+        uses: actions/checkout@v3
+
+      - name: Install The Packages
+        run: npm install
+
+      - name: Start The Application
+        run: |
+          ls -a
+          pm2 status
+
+          #* delete node-app process
+          pm2 delete node-app || true
+
+          #* Create a background process name node-app
+          pm2 start "npm start" --name="node-app"
+
+          #* Save the process
+          pm2 save
