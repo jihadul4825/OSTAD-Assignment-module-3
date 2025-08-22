@@ -18,7 +18,7 @@ jobs:
           node-version: '22'
         
       - name: Install dependencies
-        run: npm Install
+        run: npm install
       
       - name: Test The applications
         run: npm run check 
