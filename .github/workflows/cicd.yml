@@ -67,4 +67,19 @@ jobs:
           #* Save the process
           pm2 save
 
+      - name: Add Challenges & Solutions to Job Summary
+        run: |
+          cat <<EOF >> $GITHUB_STEP_SUMMARY
+          ## ⚠️ Challenges & Solutions
+
+          **Challenge:** Self-hosted runner environment setup  
+          **Solution:** Installed Node.js 22 & PM2 manually and validated with \`node -v\` & \`pm2 -v\`.
+
+          **Challenge:** Preventing duplicate app instances during redeployment  
+          **Solution:** Added cleanup step \`pm2 delete node-app || true\`.
+
+          **Challenge:** Ensuring deploy job runs only after successful tests  
+          **Solution:** Used \`needs: test\` in GitHub Actions workflow.
+          EOF
+
       
