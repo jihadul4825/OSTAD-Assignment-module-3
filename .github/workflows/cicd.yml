@@ -42,16 +42,10 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: test-results
-          path: test-results
+          path: ./junit.xml
 
       - name: Display test results
-        run: |
-          echo "=== Test Results ==="
-          if [ -f test-results/junit.xml ]; then
-            cat test-results/junit.xml
-          else
-            echo "No test results found."
-          fi
+        run: cat ./junit.xml
 
 
       - name: Install The Packages
